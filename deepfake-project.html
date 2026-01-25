@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explainable Deepfake Detection | Senthamil Valavan S</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Additional project page specific styles */
+        .project-page {
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 4rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            gap: 0.8rem;
+            color: var(--color-accent-hover);
+        }
+
+        .project-header {
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .project-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;}
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-text-secondary);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-summary {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+            max-width: 900px;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--color-accent);
+        }
+
+        .content-text {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--color-text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-box {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-left: 4px solid var(--color-accent);
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-item {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .tech-item:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-4px);
+        }
+
+        .tech-name {
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-purpose {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+
+        .methodology-list {
+            list-style: none;
+            counter-reset: step-counter;
+            margin: 1.5rem 0;
+        }
+
+        .methodology-list li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 4rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .methodology-list li:last-child {
+            border-bottom: none;
+        }
+
+        .methodology-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .step-description {
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .result-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .result-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+        }
+
+        .result-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-desc {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        .applications-list,
+        .enhancements-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .applications-list li,
+        .enhancements-list li {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+        }
+
+        .applications-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .enhancements-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--color-accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .objective-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .objective-number {
+            color: var(--color-accent);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .objective-text {
+            color: var(--color-text);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .project-page {
+                padding-top: 80px;
+            }
+
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .methodology-list li {
+                padding-left: 3rem;
+            }
+
+            .methodology-list li::before {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">SV</a>
+            <div class="nav-links">
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#skills" class="nav-link">Skills</a>
+                <a href="index.html#projects" class="nav-link">Projects</a>
+                <a href="index.html#education" class="nav-link">Education</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Page Content -->
+    <main class="project-page">
+        <div class="container">
+            <!-- Back Navigation -->
+            <a href="index.html#projects" class="back-link">
+                ← Back to Portfolio
+            </a>
+
+            <!-- Project Header -->
+            <header class="project-header">
+                <h1 class="project-title">Explainable Deepfake Detection</h1>
+
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span>👤</span>
+                        <span>Senthamil Valavan S</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>🎓</span>
+                        <span>B.Tech Information Technology</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>🏷️</span>
+                        <span>Machine Learning • Computer Vision</span>
+                    </div>
+                </div>
+
+                <p class="project-summary">
+                    An advanced deep learning system that detects manipulated deepfake videos using Convolutional Neural Networks (CNN) and provides transparent, frame-level explainability through Gradient-weighted Class Activation Mapping (Grad-CAM). This project bridges the gap between high-accuracy AI detection and interpretable results, making it suitable for real-world verification tasks.
+                </p>
+            </header>
+
+            <!-- Problem Statement -->
+            <section class="content-section">
+                <h2 class="section-title">Problem Statement</h2>
+                <p class="content-text">
+                    Deepfake technology has emerged as a significant threat to digital media integrity. Using sophisticated AI algorithms, malicious actors can create hyper-realistic fake videos that are nearly indistinguishable from authentic content. These manipulated videos can be used for misinformation campaigns, fraud, defamation, and social engineering attacks.
+                </p><p class="content-text">
+                    While several AI-based deepfake detection models exist, most operate as "black boxes" — they provide predictions without explaining how or why they reached their conclusions. This lack of transparency makes it difficult for investigators, journalists, and cybersecurity professionals to trust and verify the model's decisions.
+                </p><div class="highlight-box">
+                    <p class="content-text" style="margin-bottom: 0;">
+                        <strong>Key Challenge:</strong> How can we build a deepfake detection system that not only achieves high accuracy but also provides visual, interpretable evidence of manipulation to support human verification?
+                    </p>
+                </div>
+            </section>
+
+            <!-- Objectives -->
+            <section class="content-section">
+                <h2 class="section-title">Project Objectives</h2>
+                <p class="content-text">
+                    This project aims to develop an intelligent, transparent deepfake detection system with the following core objectives:
+                </p><div class="objectives-grid">
+                    <div class="objective-card">
+                        <div class="objective-number">OBJECTIVE 01</div>
+                        <p class="objective-text">
+                            Detect deepfake videos with high accuracy using state-of-the-art deep learning techniques
+                        </p>
+                    </div>
+                    <div class="objective-card">
+                        <div class="objective-number">OBJECTIVE 02</div>
+                        <p class="objective-text">
+                            Provide frame-level explainability showing which facial regions indicate manipulation
+                        </p>
+                    </div>
+                    <div class="objective-card">
+                        <div class="objective-number">OBJECTIVE 03</div>
+                        <p class="objective-text">
+                            Generate visual Grad-CAM heatmaps highlighting suspicious areas for human verification
+                        </p>
+                    </div>
+                    <div class="objective-card">
+                        <div class="objective-number">OBJECTIVE 04</div>
+                        <p class="objective-text">
+                            Build a scalable solution that can process video data efficiently and accurately
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Methodology -->
+            <section class="content-section">
+                <h2 class="section-title">Methodology</h2>
+                <p class="content-text">
+                    The project follows a systematic approach combining computer vision, deep learning, and explainable AI techniques:
+                </p>
+
+                <ol class="methodology-list">
+                    <li>
+                        <h3 class="step-title">Video Preprocessing</h3>
+                        <p class="step-description">
+                            Raw video files are loaded and standardized to ensure consistent input format. Videos are analyzed for metadata, frame rate, and resolution. Preprocessing includes normalization, resizing, and format conversion to prepare data for downstream processing.
+                        </p>
+                    </li>
+                    <li>
+                        <h3 class="step-title">Frame Extraction</h3>
+                        <p class="step-description">
+                            Videos are decomposed into individual frames at strategic intervals to capture temporal variations. Frame sampling techniques are applied to balance computational efficiency with detection accuracy. Each extracted frame represents a snapshot for independent analysis.
+                        </p>
+                    </li>
+                    <li>
+                        <h3 class="step-title">Face Detection & Alignment</h3>
+                        <p class="step-description">
+                            Advanced face detection algorithms (using OpenCV and pre-trained models) locate facial regions within each frame. Detected faces are cropped, aligned, and standardized to focus the model's attention on the most relevant regions for deepfake detection.
+                        </p>
+                    </li>
+                    <li>
+                        <h3 class="step-title">CNN-Based Classification</h3>
+                        <p class="step-description">
+                            A deep Convolutional Neural Network (CNN) architecture is trained to distinguish between authentic and manipulated faces. The model learns hierarchical features — from low-level textures to high-level semantic patterns — that indicate digital manipulation. Transfer learning techniques may be employed for improved performance.
+                        </p>
+                    </li>
+                    <li>
+                        <h3 class="step-title">Grad-CAM Visualization</h3>
+                        <p class="step-description">
+                            Gradient-weighted Class Activation Mapping (Grad-CAM) generates heatmap overlays on detected faces, highlighting regions the model deemed most important for classification. This provides visual explainability, showing eyes, mouth, skin texture, or other areas that exhibit manipulation artifacts.
+                        </p>
+                    </li>
+                    <li>
+                        <h3 class="step-title">Prediction & Reporting</h3>
+                        <p class="step-description">
+                            The system aggregates frame-level predictions to produce a video-level classification (real vs. fake) with confidence scores. Grad-CAM heatmaps and detailed reports are generated for human review, enabling transparent and verifiable deepfake detection.
+                        </p>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- Technologies Used -->
+            <section class="content-section">
+                <h2 class="section-title">Technologies Used</h2>
+                <p class="content-text">
+                    This project leverages cutting-edge tools and frameworks from the machine learning and computer vision ecosystems:
+                </p>
+
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <div class="tech-name">Python</div>
+                        <p class="tech-purpose">Core programming language for ML pipeline development</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-name">TensorFlow / Keras</div>
+                        <p class="tech-purpose">Deep learning framework for CNN model training</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-name">OpenCV</div>
+                        <p class="tech-purpose">Computer vision library for video processing and face detection</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-name">Grad-CAM</div>
+                        <p class="tech-purpose">Explainable AI technique for generating visual heatmaps</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-name">NumPy & Pandas</div>
+                        <p class="tech-purpose">Data manipulation and numerical computation</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-name">Matplotlib</div>
+                        <p class="tech-purpose">Visualization of results and heatmap overlays</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results & Output -->
+            <section class="content-section">
+                <h2 class="section-title">Results & Output</h2>
+                <p class="content-text">
+                    The system successfully demonstrates robust deepfake detection capabilities with transparent, interpretable results:
+                </p>
+
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-icon">🎯</div>
+                        <h3 class="result-title">High Detection Accuracy</h3>
+                        <p class="result-desc">
+                            The CNN model achieves strong performance in distinguishing real from fake videos, with high precision and recall metrics on test datasets.
+                        </p>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-icon">🔍</div>
+                        <h3 class="result-title">Visual Explainability</h3>
+                        <p class="result-desc">
+                            Grad-CAM heatmaps clearly highlight manipulated facial regions, providing visual evidence that supports the model's predictions and aids human verification.
+                        </p>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-icon">📊</div>
+                        <h3 class="result-title">Frame-Level Analysis</h3>
+                        <p class="result-desc">
+                            Each video frame is independently analyzed and explained, allowing investigators to pinpoint exact moments and regions of manipulation.
+                        </p>
+                    </div><div class="result-card">
+                        <div class="result-icon">✅</div>
+                        <h3 class="result-title">Reliable Predictions</h3>
+                        <p class="result-desc">
+                            Confidence scores accompany all predictions, helping users understand the certainty of detection and make informed decisions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p class="content-text" style="margin-bottom: 0;">
+                        <strong>Key Achievement:</strong> The combination of deep learning classification and Grad-CAM explainability creates a trustworthy, transparent AI system suitable for real-world media verification tasks.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Applications -->
+            <section class="content-section">
+                <h2 class="section-title">Real-World Applications</h2>
+                <p class="content-text">
+                    This explainable deepfake detection system has wide-ranging applications across multiple domains:
+                </p>
+
+                <ul class="applications-list">
+                    <li>
+                        <strong>Media Verification & Journalism:</strong> News organizations can verify the authenticity of video content before publication, preventing the spread of misinformation and maintaining journalistic integrity.
+                    </li>
+                    <li>
+                        <strong>Cybersecurity & Fraud Prevention:</strong> Security teams can detect deepfake-based social engineering attacks, identity fraud, and corporate espionage attempts targeting executives or public figures.
+                    </li>
+                    <li>
+                        <strong>Social Media Content Moderation:</strong> Platforms like Facebook, YouTube, and Twitter can automatically flag or remove deepfake content that violates community guidelines or spreads harmful misinformation.
+                    </li>
+                    <li>
+                        <strong>Legal & Forensic Investigation:</strong> Law enforcement and legal professionals can use the system to analyze video evidence in court cases, ensuring the authenticity of digital evidence.
+                    </li>
+                    <li>
+                        <strong>Corporate Security:</strong> Companies can protect their brand reputation by detecting fake videos impersonating executives or creating false narratives about their business.
+                    </li>
+                    <li>
+                        <strong>Political Campaign Integrity:</strong> Electoral bodies and political organizations can verify campaign videos and detect manipulation attempts aimed at influencing public opinion.
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Future Enhancements -->
+            <section class="content-section">
+                <h2 class="section-title">Future Enhancements</h2>
+                <p class="content-text">
+                    The project has significant potential for expansion and improvement. Planned future enhancements include:
+                </p>
+
+                <ul class="enhancements-list">
+                    <li>
+                        <strong>Real-Time Detection:</strong> Optimize the model and pipeline for real-time video stream analysis, enabling live deepfake detection during video calls, broadcasts, or streaming events.
+                    </li>
+                    <li>
+                        <strong>Web-Based Interface:</strong> Develop an intuitive web application using Streamlit or Flask where users can upload videos, view results, and explore Grad-CAM visualizations without technical expertise.
+                    </li>
+                    <li>
+                        <strong>Multi-Manipulation Detection:</strong> Expand the model to detect various manipulation techniques beyond face-swapping, including voice cloning, lip-sync manipulation, and partial facial editing.
+                    </li>
+                    <li>
+                        <strong>Ensemble Learning:</strong> Combine multiple models (CNN, RNN, Transformer-based architectures) to improve robustness and accuracy across diverse deepfake generation methods.
+                    </li>
+                    <li>
+                        <strong>Audio-Visual Fusion:</strong> Integrate audio analysis to detect inconsistencies between facial movements and speech patterns, catching deepfakes that manipulate both visual and audio components.
+                    </li>
+                    <li>
+                        <strong>Adversarial Robustness:</strong> Train the model against adversarial attacks to ensure reliability even when deepfake creators attempt to evade detection.
+                    </li>
+                    <li>
+                        <strong>Browser Extension:</strong> Create a lightweight browser extension for instant deepfake verification on social media platforms, news websites, and video-sharing platforms.
+                    </li>
+                    <li>
+                        <strong>API Deployment:</strong> Deploy the model as a REST API for integration into third-party applications, content management systems, and security platforms.
+                    </li>
+                </ul>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p class="content-text" style="margin-bottom: 0;">
+                        <strong>Long-Term Vision:</strong> Transform this research project into a production-ready, scalable deepfake detection platform that empowers individuals, organizations, and governments to combat digital misinformation.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="content-section">
+                <div style="text-align: center; padding: 3rem 0; border-top: 1px solid var(--color-border);">
+                    <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">Interested in Collaboration?</h3>
+                    <p class="content-text" style="margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        I'm open to discussing this project, exploring collaboration opportunities, or applying these techniques to new challenges in AI security and explainability.
+                    </p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="index.html#contact" class="btn btn-primary">Get in Touch</a>
+                        <a href="index.html#projects" class="btn btn-secondary">View Other Projects</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2026 Senthamil Valavan S. Designed & Built with passion.</p>
+        </div>
+    </footer>
+
+    <script>
+    // ============================================
+    // PROJECT PAGE ANIMATIONS
+    // Smooth, premium animations matching portfolio
+    // ============================================
+
+    // Custom easing function
+    const easeInOutCubic = (t) => {
+        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+    };
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                const startPosition = window.pageYOffset;
+                const distance = targetPosition - startPosition;
+                let startTime = null;
+
+                const animation = (currentTime) => {
+                    if (startTime === null) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    const progress = Math.min(timeElapsed / 1200, 1);
+                    const ease = easeInOutCubic(progress);
+
+                    window.scrollTo(0, startPosition + distance * ease);
+
+                    if (timeElapsed < 1200) {
+                        requestAnimationFrame(animation);
+                    }
+                };
+
+                requestAnimationFrame(animation);
+            }
+        });
+    });
+
+    // Intersection Observer for scroll animations
+    const createObserver = (callback, options = {}) => {
+        const defaultOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
+        };
+        return new IntersectionObserver(callback, { ...defaultOptions, ...options });
+    };
+
+    const animateElements = (entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const delay = entry.target.dataset.delay || 0;
+
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, delay);
+
+                observer.unobserve(entry.target);
+            }
+        });
+    };
+
+    const observer = createObserver(animateElements);
+
+    // Initialize all animations
+    const initAnimations = () => {
+        // Animate back link
+        const backLink = document.querySelector('.back-link');
+        if (backLink) {
+            backLink.style.opacity = '0';
+            backLink.style.transform = 'translateY(20px)';
+            backLink.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            setTimeout(() => {
+                backLink.style.opacity = '1';
+                backLink.style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        // Animate project title
+        const projectTitle = document.querySelector('.project-title');
+        if (projectTitle) {
+            projectTitle.style.opacity = '0';
+            projectTitle.style.transform = 'translateY(40px)';
+            projectTitle.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            setTimeout(() => {
+                projectTitle.style.opacity = '1';
+                projectTitle.style.transform = 'translateY(0)';
+            }, 200);
+        }
+
+        // Animate project meta
+        const metaItems = document.querySelectorAll('.meta-item');
+        metaItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 300 + (index * 100));
+        });
+
+        // Animate project summary
+        const projectSummary = document.querySelector('.project-summary');
+        if (projectSummary) {
+            projectSummary.style.opacity = '0';
+            projectSummary.style.transform = 'translateY(30px)';
+            projectSummary.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+            setTimeout(() => {
+                projectSummary.style.opacity = '1';
+                projectSummary.style.transform = 'translateY(0)';
+            }, 600);
+        }
+
+        // Animate section titles
+        const sectionTitles = document.querySelectorAll('.section-title');
+        sectionTitles.forEach(title => {
+            title.style.opacity = '0';
+            title.style.transform = 'translateY(30px)';
+            title.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(title);
+        });
+
+        // Animate content text
+        const contentTexts = document.querySelectorAll('.content-text');
+        contentTexts.forEach((text, index) => {
+            text.style.opacity = '0';
+            text.style.transform = 'translateY(25px)';
+            text.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            text.dataset.delay = (index % 3) * 100;
+            observer.observe(text);
+        });
+
+        // Animate highlight boxes
+        const highlightBoxes = document.querySelectorAll('.highlight-box');
+        highlightBoxes.forEach(box => {
+            box.style.opacity = '0';
+            box.style.transform = 'translateY(30px)';
+            box.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(box);
+        });
+
+        // Animate objective cards
+        const objectiveCards = document.querySelectorAll('.objective-card');
+        objectiveCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(40px)';
+            card.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            card.dataset.delay = index * 150;
+            observer.observe(card);
+        });
+
+        // Animate methodology list items
+        const methodologyItems = document.querySelectorAll('.methodology-list li');
+        methodologyItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(40px)';
+            item.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            item.dataset.delay = index * 100;
+            observer.observe(item);
+        });
+
+        // Animate tech items
+        const techItems = document.querySelectorAll('.tech-item');
+        techItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(40px)';
+            item.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+            item.dataset.delay = index * 100;
+            observer.observe(item);
+        });
+
+        // Animate result cards
+        const resultCards = document.querySelectorAll('.result-card');
+        resultCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(40px)';
+            card.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            card.dataset.delay = index * 150;
+            observer.observe(card);
+        });
+
+        // Animate application list items
+        const applicationItems = document.querySelectorAll('.applications-list li');
+        applicationItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+            item.dataset.delay = index * 80;
+            observer.observe(item);
+        });
+
+        // Animate enhancement list items
+        const enhancementItems = document.querySelectorAll('.enhancements-list li');
+        enhancementItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+            item.dataset.delay = index * 80;
+            observer.observe(item);
+        });
+
+        // Animate buttons
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach((button, index) => {
+            button.style.opacity = '0';
+            button.style.transform = 'translateY(20px)';
+            button.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            button.dataset.delay = index * 100;
+            observer.observe(button);
+        });
+    };
+
+    // Enhanced hover effects for cards
+    const initHoverEffects = () => {
+        // Tech items hover
+        const techItems = document.querySelectorAll('.tech-item');
+        techItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+            });
+        });
+
+        // Result cards hover
+        const resultCards = document.querySelectorAll('.result-card');
+        resultCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+            });
+        });
+
+        // Objective cards hover
+        const objectiveCards = document.querySelectorAll('.objective-card');
+        objectiveCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+                card.style.transform = 'translateY(-4px)';
+                card.style.borderColor = 'var(--color-accent)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.borderColor = 'var(--color-border)';
+            });
+        });
+    };
+
+    // Magnetic button effect
+    const initMagneticButtons = () => {
+        const buttons = document.querySelectorAll('.btn');
+
+        buttons.forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                button.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+            });
+
+            button.addEventListener('mouseleave', () => {
+                button.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+                button.style.transform = 'translate(0, 0)';
+
+                setTimeout(() => {
+                    button.style.transition = '';
+                }, 600);
+            });
+        });
+    };
+
+    // Navbar scroll effect
+    let lastScroll = 0;
+    const nav = document.querySelector('.nav');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll <= 100) {
+            nav.style.background = 'transparent';
+            nav.style.backdropFilter = 'none';
+            nav.style.boxShadow = 'none';
+        } else {
+            nav.style.background = 'rgba(13, 16, 23, 0.9)';
+            nav.style.backdropFilter = 'blur(10px)';
+            nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+        }
+
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            nav.style.transform = 'translateY(-100%)';
+        } else {
+            nav.style.transform = 'translateY(0)';
+        }
+
+        lastScroll = currentScroll;
+    }, { passive: true });
+
+    // Initialize everything when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            initAnimations();
+            initHoverEffects();
+            initMagneticButtons();
+        });
+    } else {
+        initAnimations();
+        initHoverEffects();
+        initMagneticButtons();
+    }
+    </script>ipt src="script.js"></script>
+</body>
+</html>
